@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background: linear-gradient(rgba(20,11,46,0.7),rgba(42,24,82,0.8));
+  background: linear-gradient(rgba(10,6,25,0.8),rgba(26,15,48,0.9));
   background-image: url('bg.jpg');
   background-repeat: no-repeat;
   background-position: center;
@@ -22,31 +22,31 @@ body{
 .main{
   max-width:700px;
   margin:0 auto;
-  background:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.55);
   border-radius:20px;
   padding:40px 20px;
-  border:2px solid #8a65d8
+  border:2px solid #d4af37;
 }
 h1{
   font-size:36px;
   color:#ffd700;
-  margin-bottom:20px
+  margin-bottom:20px;
 }
 .info{
   font-size:16px;
   color:#eee;
   margin-bottom:40px;
-  line-height:1.7
+  line-height:1.7;
 }
 .welfare{
-  background:rgba(138,101,216,0.2);
+  background:rgba(212,175,55,0.15);
   border-radius:15px;
   padding:25px 15px;
   margin:25px 0;
   text-align:left;
   line-height:1.8;
   font-size:15px;
-  border:1px solid #8a65d8;
+  border:1px solid #d4af37;
 }
 .welfare h3{
   color:#ffd700;
@@ -59,47 +59,240 @@ h1{
   width:85%;
   height:55px;
   line-height:55px;
-  background:#7a57d8;
+  background:#b8860b;
   color:#fff;
   font-size:18px;
   border-radius:12px;
   margin:14px auto;
-  text-decoration:none
+  text-decoration:none;
+  transition: background 0.3s;
+  border:none;
+  cursor:pointer;
 }
 .btn:hover{
-  background:#6342c2
+  background:#9b7007;
+}
+/* 兑换码弹窗样式 */
+.modal-mask{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.75);
+  z-index:999;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal-box{
+  background:#1a1430;
+  border:2px solid #d4af37;
+  border-radius:16px;
+  max-width:520px;
+  width:100%;
+  padding:24px;
+}
+.modal-box h2{
+  color:#ffd700;
+  margin-bottom:16px;
+  font-size:20px;
+}
+.code-textarea{
+  width:100%;
+  min-height:160px;
+  background:#0c0820;
+  color:#fff;
+  border:1px solid #d4af37;
+  border-radius:10px;
+  padding:12px;
+  font-size:15px;
+  line-height:1.6;
+  resize:none;
+}
+.modal-buttons{
+  margin-top:16px;
+  display:flex;
+  gap:12px;
+}
+.modal-btn{
+  flex:1;
+  height:48px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+}
+.copy-btn{
+  background:#b8860b;
+  color:#fff;
+}
+.close-btn{
+  background:#444;
+  color:#fff;
+}
+.tip-text{
+  color:#7cf07c;
+  margin-top:10px;
+  display:none;
+}
+
+/* ========== 图片弹窗新增样式 ========== */
+.img-modal-mask{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.88);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.img-modal-box{
+  position:relative;
+}
+.img-modal-box img{
+  max-width:90vw;
+  max-height:85vh;
+  border-radius:14px;
+  border:2px solid #d4af37;
+}
+.img-close-btn{
+  position:absolute;
+  top:-14px;
+  right:-14px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#b8860b;
+  color:#fff;
+  font-size:24px;
+  border:none;
+  cursor:pointer;
 }
 </style>
 </head>
 <body>
-
 <div class="main">
-<h1>时光杂货店</h1>
-<p class="info">
-复古怀旧模拟经营<br>
-开店创业经营小镇｜上线领钻石｜钞票资源免费领
-</p>
+  <h1>时光杂货店</h1>
+  <p class="info">
+    模拟经营 · 穿越时光 · 放置养成手游<br>
+    上线领取海量资源｜稀有道具｜限时福利
+  </p>
+  <div class="welfare">
+  <h3>🎁 时光杂货店内测兑换码</h3>
+  <p>sg666：时光币 x 10888</p>
+  <p>sg888：小时卡 x 666，大阅历卡 x 888，香香 x 9999</p>
+  <p>钻石 x 66666，普通突破箱 x 888</p>
+  <p>sg999：时光币 × 8888，人才·女武神 × 1，艺人·沈清月 × 1</p>
+  <p>梦幻车标 × 100，天子印记 × 200，特级随机补品 × 888</p>
+  <br>
+  
+  <br>
+  <p>⚠️ 领取提醒：兑换码在游戏内【左边图标】兑换，全区全服通用</p>
+  </div>
+  <!-- 打开兑换码弹窗按钮 -->
+  <button class="btn" id="openModalBtn">📋一键复制全部兑换码</button>
+  <!-- 新增查看图片弹窗按钮 -->
+  <button class="btn" id="openImgModalBtn">🖼️查看游戏宣传图</button>
 
-<div class="welfare">
-<h3>🎁 开局礼包</h3>
-<p>时光币*28888 梦幻车标*100 小时卡*520 分钟卡*999</p>
-<p>香香*3000 致富经*1888 小阅历卡*99 随机书籍*588 </p>
-<p>普通手表*1000 普通西装*1000 普通皮鞋*1000</p>
-
-<br>
-<p>⚠️可通过登录入口直接进入游玩</p>
-<p>🔐需要先注册才可</p>
-<p>有问题加入Q群找客服</p>
+  <a href="https://sg.hdx.im/SGSG.html" class="btn">📥 下载链接</a>
+  <a href="http://sgzhd.fsf68.com/r/ALAIT0RM" class="btn">👤注册链接</a>
+  <a href="https://sgzhd.fsf68.com/player/login" class="btn">🎁 玩家中心</a>
+  <a href="https://qm.qq.com/q/Gxdc0IuskC" class="btn">📱 玩家Q群</a>
+  <a href="https://1546503875-byte.github.io/zhongxin" class="btn">🎮更多游戏</a>
 </div>
 
-<a href="http://sgzhd.nckj168.com/web-mobile/" class="btn">📥 登录入口</a>
-<a href="http://180.188.35.206:1688/reg.php?invite=168688" class="btn">📝 账号注册</a>
-<a href="http://180.188.35.206:1688/pay.php" class="btn">💰 玩家商城</a>
-<a href="http://180.188.35.206:1688/sgzhd_recharge.php" class="btn">🎁礼包说明
-<a href="https://qm.qq.com/q/tNRCxMxF04" class="btn">📱 加入官方QQ群</a>
-<a href="https://1546503875-byte.github.io/zhongxin" class="btn">🎁 游戏中心</a>
+<!-- 兑换码弹窗DOM -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal-box">
+  <h2>全部兑换码（直接复制）</h2>
+  <textarea class="code-textarea" id="codeArea" readonly>
+内测兑换码
+sg666
+sg888
+sg999
 
+  </textarea>
+  <div class="modal-buttons">
+  <button class="modal-btn copy-btn" id="copyBtn">📋复制兑换码</button>
+  <button class="modal-btn close-btn" id="closeBtn">关闭</button>
+  </div>
+  <div class="tip-text" id="copyTip">✅复制成功！去游戏粘贴兑换</div>
+  </div>
 </div>
 
+<!-- ========== 图片弹窗DOM【新增】 ========== -->
+<div class="img-modal-mask" id="imgModalMask">
+  <div class="img-modal-box">
+    <button class="img-close-btn" id="imgCloseBtn">×</button>
+    <!-- 替换为github raw图片链接 -->
+    <img src="poster.jpg" alt="时光杂货店宣传图">
+  </div>
+</div>
+
+<script>
+const modalMask = document.getElementById('modalMask');
+const openModalBtn = document.getElementById('openModalBtn');
+const closeBtn = document.getElementById('closeBtn');
+const copyBtn = document.getElementById('copyBtn');
+const codeArea = document.getElementById('codeArea');
+const copyTip = document.getElementById('copyTip');
+
+//====图片弹窗变量====
+const imgModalMask = document.getElementById('imgModalMask');
+const openImgModalBtn = document.getElementById('openImgModalBtn');
+const imgCloseBtn = document.getElementById('imgCloseBtn');
+
+//打开兑换码弹窗
+openModalBtn.onclick = function(){
+  modalMask.style.display = 'flex';
+  copyTip.style.display = 'none';
+}
+//关闭兑换码弹窗
+closeBtn.onclick = function(){
+  modalMask.style.display = 'none';
+}
+//点击遮罩关闭兑换码弹窗
+modalMask.onclick = function(e){
+  if(e.target === modalMask){
+    modalMask.style.display = 'none';
+  }
+}
+//复制功能
+copyBtn.onclick = async function(){
+  try{
+    await navigator.clipboard.writeText(codeArea.value.trim());
+    copyTip.style.display = 'block';
+  }catch(err){
+    //降级复制方案
+    codeArea.select();
+    document.execCommand('copy');
+    copyTip.style.display = 'block';
+  }
+}
+
+//========图片弹窗JS逻辑【新增】========
+//打开图片弹窗
+openImgModalBtn.onclick = function(){
+  imgModalMask.style.display = 'flex';
+}
+//关闭图片弹窗
+imgCloseBtn.onclick = function(){
+  imgModalMask.style.display = 'none';
+}
+//点击黑色遮罩关闭图片弹窗
+imgModalMask.onclick = function(e){
+  if(e.target === imgModalMask){
+    imgModalMask.style.display = 'none';
+  }
+}
+//ESC键关闭图片弹窗
+document.addEventListener('keydown',function(e){
+  if(e.key === 'Escape'){
+    imgModalMask.style.display = 'none';
+  }
+})
+</script>
 </body>
 </html>
